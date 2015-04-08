@@ -1,41 +1,35 @@
 $(document).ready(function(){
 
 	$(function(){
-		$('#search-term').submit(function(even){
-			event.preventDefault();
+		$('#search-term').click(function(even){
 			var searchTerm = $('#query').val();
 			getRequest(searchTerm);
 		})
 
 		function getRequest(searchTerm){
-		  var params = {
-		    s: searchTerm,
-		    r: 'json'
-		  };
-		  url = 'http://www.youtube.com';
+		      var params = {
+        part: 'snippet',
+        key: 'AIzaSyCbAkY_3yhzb_EFgsu8mGqTSqaJCkbYfVY',
+        q: searchTerm,
+        maxResults: 12,
+        type: 'video'
+    	};
+
+    	url = 'https://www.googleapis.com/youtube/v3/search';
 
 		  $.getJSON(url, params, function(data){
-		  	result = JSON.parsel(result);
-		    showResults(data.Search);
+		    showResults(data.items);
 		  });
 		}
-
-		$.getJSON('https://www.googleapis.com/youtube/v3/videos?id=7lCDEYXw3mM&key=AIzaSyCbAkY_3yhzb_EFgsu8mGqTSqaJCkbYfVY&part=snippet,contentDetails,statistics,status', function(data){
-	    myData = data.Search;
-	    console.log(data);
-	    $.each(myData), function(index,value){
-	    	console.log(value.Title);
-	    }
-	  })
-	});
+	  });
 
 	function showResults(results){
 		var html="";
 		$.each(results, function(index,value){
-			html += '<p>'+ value.Title + '</p>';
-			console.log(value.Title);
+			html += '<p>'+ value.snippet.title + '</p>';
+			html += '<img src="'+value.snippet.thumbnails.default.url+'">';
+			console.log(value.snippet.title);
 	});
 		$('#search-results').html(html);
 	}	
 });
-
