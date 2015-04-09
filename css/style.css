@@ -49,3 +49,14 @@ li {
 div {
 	margin: 0 auto;
 }
+
+#search-results {
+	display: inline;
+}
+
+p {
+	font-family: 'Roboto Condensed', sans-serif;
+	color: black;
+	font-size: .5em;
+
+}
